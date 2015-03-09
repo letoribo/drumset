@@ -126,12 +126,12 @@ function myController($scope, $timeout, socket) {
     if (set === "L") {
       var note = index + 26;
       $scope.note = note;
-      $scope.sound = $scope.mas[note]; console.log($scope.sound);
+      $scope.sound = $scope.mas[note];
     }
     if (set === "R") {
       var note = index + 26;
       $scope.Note = note;
-      $scope.Sound = $scope.mas[note]; console.log($scope.Sound); 
+      $scope.Sound = $scope.mas[note];
     }
   }
    
