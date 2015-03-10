@@ -247,6 +247,10 @@ function myController($scope, $timeout, socket) {
     $scope.interval = 60000 / $scope._tempo * 0.25;
   };
   
+  $scope.changePitch = function() {
+  	 Jazz.MidiOut(0xe9, 0, $scope._pitch);
+  };
+    
   $scope.changemidi = function() {
     Jazz.MidiOutOpen($scope._out); Jazz.MidiOut(0xc0, _.indexOf($scope.sounds, $scope._sound), 0);
     $('select').blur();
@@ -317,6 +321,7 @@ function myController($scope, $timeout, socket) {
   $scope.count = 1;
   $scope.beats = 8;
   $scope._tempo = 125;
+  $scope._pitch = 64;
   $scope.Lpattern = "01001011";
   $scope.Rpattern = "10110100";
   $scope.set = [];
