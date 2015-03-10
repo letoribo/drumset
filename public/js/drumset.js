@@ -211,6 +211,7 @@ function myController($scope, $timeout, socket) {
   
   $scope.randomize = function() {
     var minus = [7,0,1,2,3,4,5,6]; var last = minus[$scope.count]; var blast = minus[last];
+    if (_.isEmpty($scope.Set) || _.isEmpty($scope.set)) return;
  	 if(_.size($scope.Set) == 1){	
       $scope.Snd = $scope.Updown();
     }
