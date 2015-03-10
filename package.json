@@ -8,9 +8,10 @@
   },
   "keywords": [
     "midi",
+    "sound",    
     "drums",
     "percussion",
-    "sound",
+    "paradiddles",
     "training",
     "AngularJS"
   ],
@@ -19,7 +20,7 @@
     "socket.io": "0.9.x"
   },
   "scripts": {
-    "start": "app.js"
+    "start": "node app.js"
   },
   "author": "letoribo"
 }

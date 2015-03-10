@@ -248,7 +248,7 @@ function myController($scope, $timeout, socket) {
   
   $scope.changemidi = function() {
     Jazz.MidiOutOpen($scope._out); Jazz.MidiOut(0xc0, _.indexOf($scope.sounds, $scope._sound), 0);
-    select_out.blur();
+    $('select').blur();
   };
     
   $scope.updown = function() {
@@ -265,15 +265,18 @@ function myController($scope, $timeout, socket) {
     $scope.count ++;
     if($scope.count >= $scope.beats) $scope.count = 0; 
     if ($scope.checked) $scope.metronome();
-    Jazz.MidiOut(0x99,$scope.updown() ? $scope.note : 0, 111);
-    Jazz.MidiOut(0x99, $scope.Updown() ? $scope.Note : 0, 111);
+    var l = $scope.updown() ? $scope.note : 0;
+    var r = $scope.Updown() ? $scope.Note : 0;
+    Jazz.MidiOut(0x99, l, 111);
+    Jazz.MidiOut(0x99, r, 111);
     timeout = $timeout(function() {
       tick();
     }, $scope.interval);
   }
   
   $scope.metronome = function (){
-    Jazz.MidiOut(0x99, $scope.count ? 0 : 34, 127);
+  	 var click = $scope.count ? 0 : 34;
+    Jazz.MidiOut(0x99, click, 127);
   };
 
   $scope.mas = {
@@ -305,14 +308,11 @@ function myController($scope, $timeout, socket) {
   $scope.L8 = ["00100110", "00110110", "00101010", "00110010"]; 
 
   Jazz = document.getElementById("Jazz1"); if(!Jazz || !Jazz.isJazz) Jazz = document.getElementById("Jazz2");
-  select_out = document.getElementById('selectmidi');
-  select_tempo = document.getElementById('tempo');
   $scope.interval = 120;
   $scope.W = window.innerWidth * 0.34;
   $scope.state = true;
   $scope.playing = 'Play'; $scope.Playing = false;
   $scope.list = Jazz.MidiOutList();
-  $scope._out = $scope.list[0];
   $scope.count = 1;
   $scope.beats = 8;
   $scope._tempo = 125;
