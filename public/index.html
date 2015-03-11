@@ -59,6 +59,7 @@ i.R {border:1px solid green;}
 .drum {height:54px;}
 .set.down, .set.Down {background: grey;}
 .set.up, .set.Up {background:#fee;}
+.finale {margin-top:18px;height: 50px; width: 336px;background-position: center;}
 </style>
 </head>
 
@@ -147,6 +148,10 @@ i.R {border:1px solid green;}
 <div>
  <div title="beats" id="beats" ng-jquery-plugin="{ slider : { min: 1, max: 16, value: 8, stop : onStop }, width: W }"></div>
 </div> 
+<div> 
+<img id = "header" class="finale" style="float:right" ng-model="Rpattern" ng-style="{'background-image':'url(R/' + Rpattern + '.jpg )'}">
+<img id = "header" class="finale" ng-model="Lpattern" ng-style="{'background-image':'url(L/' + Lpattern + '.jpg )'}"> 
+</div>
 <div ng-click="side = 'R';" id="drumsetR">
 <div ng-model="Set" class="drum" ng-repeat="i in Set track by $index">
  <div class='set' title='drag it' ng-class="{'down': ((Set.length==1&&$index==!Snd)||(Set.length>1&&$index==Snd)), 'up': ((Set.length==1&&$index==Snd)||(Set.length>1&&$index==!Snd)) }" ng-jquery-plugin="{draggable : { containment: '#drumsetR' }}" ng-dblclick="destroy('R',$index);">{{mas[i]}}</div>
