@@ -240,14 +240,12 @@ function myController($scope, $timeout, socket) {
   };
     
   $scope.visual = function (){
-    	var r = _.size($scope.set) - 1;
-    $scope.snd = _.random(0, r);
+    $scope.snd = _.random(0, _.size($scope.set)-1);
     $scope.note = $scope.set[$scope.snd];
   };
        
   $scope.Visual = function (){ 
-    var r = _.size($scope.Set) - 1;
-    $scope.Snd = _.random(0, r);
+    $scope.Snd = _.random(0, _.size($scope.Set));
     $scope.Note = $scope.Set[$scope.Snd];
   };
         
