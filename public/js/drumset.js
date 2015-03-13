@@ -240,7 +240,7 @@ function myController($scope, $timeout, socket) {
   };
     
   $scope.visual = function (){
-    	var r = _.size($scope.set) - 1;
+    var r = _.size($scope.set) - 1;
     $scope.snd = _.random(0, r);
     $scope.note = $scope.set[$scope.snd];
   };
@@ -322,7 +322,7 @@ function myController($scope, $timeout, socket) {
 
   Jazz = document.getElementById("Jazz1"); if(!Jazz || !Jazz.isJazz) Jazz = document.getElementById("Jazz2");
   $scope.interval = 120;
-  $scope.W = window.innerWidth * 0.34;
+  $scope.W = window.innerWidth * 0.36;
   $scope.state = true;
   $scope.playing = 'Play'; $scope.Playing = false;
   $scope.list = Jazz.MidiOutList();
@@ -342,9 +342,9 @@ function myController($scope, $timeout, socket) {
   $scope.changeRpattern = function(p) {
     if ($scope.Invert) { 
       $scope.Folder = 'L';
-  	   var z = '';
-  	   _.map(p, function(b){ z += (b === '1' ? '0' : '1'); })
-  	   $scope.Rpattern = z;
+  	   $scope.Rpattern = p.replace(/./g,function(b){
+        return b=='0'?'1':'0';
+      });
   	   $scope.changepattern('L', true, $scope.Rpattern);
   	 }else{ 
   	   $scope.Folder = 'R';
@@ -356,9 +356,9 @@ function myController($scope, $timeout, socket) {
   $scope.changeLpattern = function(p) {      	
   	 if ($scope.invert) { 
   	   $scope.folder = 'R';
-  	   var z = ''; 	  
-  	   _.map(p, function(b){ z+=(b === '1' ? '0' : '1'); })
-  	   $scope.Lpattern = z;
+  	   $scope.Lpattern = p.replace(/./g,function(b){
+        return b=='0'?'1':'0';
+      });
   	   $scope.changepattern('R', true, $scope.Lpattern);
     }else{   	 
       $scope.folder = 'L';
