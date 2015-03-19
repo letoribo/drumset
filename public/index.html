@@ -64,15 +64,16 @@ i.R {border:1px solid green;}
 </style>
 </head>
 
-<body ng-controller="myController">
-<object id="Jazz1" classid="CLSID:1ACE1618-1C7D-4561-AEE1-34842AA85E90" class="hidden">
+<body ng-controller="myController" ng-init="onReady()">
+<object id="Jazz1" classid="clsid:1ACE1618-1C7D-4561-AEE1-34842AA85E90" class="hidden">
 <object id="Jazz2" type="audio/x-jazz" class="hidden">
- <p style="visibility:visible;">This page requires <a href="http://jazz-soft.net" style="color:#f6931f; font-weight:bold;">Jazz-Plugin</a>
+ <p style="visibility:visible;">This page requires <a href="http://jazz-soft.net/" style="color:#f6931f; font-weight:bold;">Jazz-Plugin</a>
  <img src="./images/ear.png"> !!! Restart the browser
  <img src="./images/chrome.ico"> after installing!</p>
 </object>
 </object>
 <div style="float:right;width:40%">
+
 <div id="right" class="PS">
 <ul>
  <li ng-repeat="i in R5" ng-mousedown="changeRpattern(i.p);" style="background:{{i.bg}}" ng-class="{ 'selected': i.p == Rpattern }"><strong>{{i.p}}</strong></li>         
@@ -85,7 +86,7 @@ i.R {border:1px solid green;}
 </ul>
 <ul>
  <li ng-repeat="i in R8" ng-mousedown="changeRpattern(i);" ng-class="{ 'selected': i == Rpattern }"><strong>{{i}}</strong></li>
- <br><input type="checkbox" id="Invert" style="cursor: pointer;" ng-model="Invert"/>                   
+ <br><input type="checkbox" id="Invert" style="cursor: pointer;" ng-model="Invert"/>         
 </ul>
 </div>
 <div class="PS">
@@ -127,11 +128,12 @@ i.R {border:1px solid green;}
  <li ng-repeat="i in L7" ng-mousedown="changeLpattern(i);" ng-class="{ 'selected': i == Lpattern }"><strong>{{i}}</strong></li>         
 </ul>
 <ul>
- <li ng-repeat="i in L8" ng-mousedown="changeLpattern(i);" ng-class="{ 'selected': i == Lpattern }"><strong>{{i}}</strong></li> 
- <br><input type="checkbox" id="invert" style="cursor: pointer;" ng-model="invert"/>        
+ <li ng-repeat="i in L8" ng-mousedown="changeLpattern(i);" ng-class="{ 'selected': i == Lpattern }"><strong>{{i}}</strong></li>
+ <br><input type="checkbox" id="invert" style="cursor: pointer;" ng-model="invert"/>         
 </ul>
 </div>
 </div>
+
 <div style="float:right;">
 <p>
 <label>MIDI Out:</label><select id=selectmidi ng-change="changemidi();" ng-model="_out">
@@ -145,26 +147,26 @@ i.R {border:1px solid green;}
 <div>
  <label>Tempo: </label><input type="number" min="0" max="400" ng-change='changetempo();' ng-click="blur();" ng-model="_tempo"/>
  <label>Pitch: </label><input type="number" min="0" max="127" ng-change='changePitch();' ng-click="blur();" ng-model="_pitch"/> 
- <button ng-click='shuffle();' ng-jquery-plugin="{button : { label: 'R.N.'}}"></button>
+ <button ng-click='shuffle();' ng-jquery-plugin="{button : { label: 'R.N.'}}" ng-init="shuffle()"></button>
+ <button ng-click='changePatterns();' ng-jquery-plugin="{button : { label: 'R.P.'}}"></button>
  <button ng-click='random();' ng-disabled="state" ng-jquery-plugin="{button : { label: 'Randomize',disabled:false}}"></button>
 </div>
 <pre>   beats: <input type="text" ng-click="blur();" ng-model="beats">count: <input type="text" size="4" ng-model="count" ng-click="blur();" value="1" ng-class="{ 'first': count == 0 }"></pre>
-<div>
- <center>
+<div><center>
  <div title="beats" ng-jquery-plugin="{ slider : { min: 1, max: 16, value: 8, stop : onStop }, width: W }"></div></center>
 </div> 
 <div> 
 <img id = "header" class="finale" style="float:right" ng-init="Folder='R'" ng-model="Rpattern" ng-style="{'background-image':'url(' + Folder + '/' + Rpattern + '.jpg )'}">
 <img id = "header" class="finale" style="float:left" ng-model="Lpattern" ng-init="folder='L'" ng-style="{'background-image':'url(' + folder + '/' + Lpattern + '.jpg )'}">
-</div>
+</div> 
 <div ng-click="side = 'R';" id="drumsetR">
 <div ng-model="Set" class="drum" ng-repeat="i in Set track by $index">
- <div class='set' title='drag it' ng-class="{'down': ((Set.length==1&&$index==!Snd)||(Set.length>1&&$index==Snd)), 'up': ((Set.length==1&&$index==Snd)||(Set.length>1&&$index==!Snd)) }" ng-jquery-plugin="{draggable : { containment: '#drumsetR' }}" ng-dblclick="destroy('R',$index);">{{mas[i]}}</div>
+ <div class='set' title='drag it' ng-class="{'down': ((Set.length==1&&$index==!Snd)||(Set.length>1&&$index==Snd)), 'up': ((Set.length==1&&$index==Snd)||(Set.length>1&&$index==!Snd)) }" ng-jquery-plugin="{draggable : { containment: '#drumsetR' }}" ng-dblclick="destroy('R',$index);">{{Set.length==1?Sound:mas[i]}}</div>
 </div>
 </div>
 <div ng-click="side = 'L';" id="drumsetL">
 <div ng-model="set" class="drum" ng-repeat="i in set track by $index">
- <div class='set' title='drag it' ng-class="{'down': ((set.length==1&&$index==!snd)||(set.length>1&&$index==snd)), 'up': ((set.length==1&&$index==snd)||(set.length>1&&$index==!snd)) }" ng-jquery-plugin="{draggable : { containment: '#drumsetL' }}" ng-dblclick="destroy('L',$index);">{{mas[i]}}</div>
+ <div class='set' title='drag it' ng-class="{'down': ((set.length==1&&$index==!snd)||(set.length>1&&$index==snd)), 'up': ((set.length==1&&$index==snd)||(set.length>1&&$index==!snd)) }" ng-jquery-plugin="{draggable : { containment: '#drumsetL' }}" ng-dblclick="destroy('L',$index);">{{set.length==1?sound:mas[i]}}</div>
 </div>
 </div>
 </div>
